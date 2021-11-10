@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL Checker</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
@@ -16,14 +15,24 @@
 
     <main>
       <form id="url-form">
-        <label for="url">Enter URL:</label>
-        <input type="text" id="url" name="url" placeholder="e.g, http://example.com">
+        <div class="input-group">
+          <label for="url-input">Enter URL:</label>
+          <input
+            type="text"
+            id="url-input"
+            name="url"
+            placeholder="e.g, http://example.com"
+            autofocus
+          />
+          <div class="hint-text">Format: https://example.com, example.com</div>
+        </div>
 
-        <button type="submit">Check</button>
+        <button id="submit-button" type="submit" disabled>Submit</button>
       </form>
+
+      <div id="result-wrapper"></div>
     </main>
 
     <script src="./index.js"></script>
   </body>
-
 </html>

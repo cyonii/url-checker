@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+html {
+  --color-danger: #f00;
+  --color-success: rgb(6, 211, 6);
+  --color-grey-1: #f5f5f5;
+  --color-grey-2: #ddd;
+}
+
 html,
 body {
   font-family: sans-serif;
@@ -27,11 +34,12 @@ main {
 
 button,
 input {
-  background: #fafafa;
-  border: 0.0625rem solid #ddd;
+  background: var(--color-grey-1);
+  border: 0.125rem solid var(--color-grey-2);
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  outline: none;
 }
 
 button {
@@ -43,10 +51,16 @@ button:focus {
   background: #f5f5f5;
 }
 
+button[disabled] {
+  background: #ddd;
+  cursor: not-allowed;
+}
+
 input {
   width: 100%;
 }
 
+#result-wrapper,
 #url-form {
   width: 400px;
 }
@@ -57,4 +71,29 @@ input {
 
 #url-form button[type='submit'] {
   margin-top: 1rem;
+}
+
+.hint-text {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+#result-wrapper {
+  margin-top: 2rem;
+}
+
+#result-container {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+/* Utility classes */
+.is-invalid {
+  border-color: var(--color-danger);
+  box-shadow: var(--color-danger);
+}
+
+.is-valid {
+  border-color: var(--color-success);
+  box-shadow: var(--color-success);
 }
