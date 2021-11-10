@@ -7,7 +7,7 @@ const resultWrapper = document.getElementById('result-wrapper');
 const isValidUrl = (url) => {
   const pattern = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 
-  return url.match(pattern) !== null;
+  return pattern.test(url);
 };
 
 const postUrl = async (url) => {
@@ -89,6 +89,7 @@ const handleUrlInput = (event) => {
 // Event handlers
 urlInput.onkeyup = throttle(handleUrlInput);
 urlInput.onchange = throttle(handleUrlInput);
+
 urlForm.onsubmit = (event) => {
   event.preventDefault();
 
