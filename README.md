@@ -10,3 +10,7 @@
 
 - User input is validated on the client side following the `onkeyup` and `onchange` events.
 - Server response and input validity (with visual appeal) is displayed in the browser as user types.
+
+## Live Demo
+
+You can check out the live demo [here](https://raw.githack.com/cyonii/url-checker/master/src/index.html)
