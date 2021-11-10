@@ -26,6 +26,20 @@ const postUrl = async (url) => {
   return Promise.reject(Error('Not found'));
 };
 
+// Throttle function to prevent too many requests
+const throttle = (fn, delay = 2000) => {
+  let lastCall = 0;
+
+  return (...args) => {
+    const now = new Date().getTime();
+
+    if (now - lastCall < delay) return;
+    lastCall = now;
+
+    fn(...args);
+  };
+};
+
 // DOM manipulation
 const resultTemplate = (data) => `
   <div id="result-wrapper">
@@ -75,8 +89,8 @@ const handleUrlInput = (event) => {
 };
 
 // Event handlers
-urlInput.onkeyup = handleUrlInput;
-urlInput.onchange = handleUrlInput;
+urlInput.onkeyup = throttle(handleUrlInput);
+urlInput.onchange = throttle(handleUrlInput);
 urlForm.onsubmit = (event) => {
   event.preventDefault();
 
