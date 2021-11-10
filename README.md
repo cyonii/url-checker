@@ -10,6 +10,7 @@
 
 - User input is validated on the client side following the `onkeyup` and `onchange` events.
 - Server response and input validity (with visual appeal) is displayed in the browser as user types.
+- Server request is throttled to prevent too many requests.
 
 ## Live Demo
 
