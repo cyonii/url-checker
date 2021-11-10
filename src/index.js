@@ -42,14 +42,12 @@ const throttle = (fn, delay = 250) => {
 
 // DOM manipulation
 const resultTemplate = (data) => `
-  <div id="result-wrapper">
-    <h2>Result</h2>
+  <h2>Result</h2>
 
-    <div id="result-container">
-      URL: ${data.url} <br />
-      Exists: ${data.exists} <br />
-      Type: ${data.type}
-    </div>
+  <div id="result-container">
+    URL: ${data.url} <br />
+    Exists: ${data.exists} <br />
+    Type: ${data.type}
   </div>
 `;
 
