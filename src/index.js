@@ -27,7 +27,7 @@ const postUrl = async (url) => {
 };
 
 // Throttle function to prevent too many requests
-const throttle = (fn, delay = 2000) => {
+const throttle = (fn, delay = 250) => {
   let lastCall = 0;
 
   return (...args) => {
