@@ -10,23 +10,15 @@ const isValidUrl = (url) => {
   return pattern.test(url);
 };
 
+const getSample = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
 const postUrl = async (url) => {
-  const types = ['file', 'folder'];
+  const exists = getSample([true, false]);
+  const type = exists ? getSample(['file', 'folder']) : null;
 
-  if (Math.round(Math.random() * 1) === 1) {
-    return Promise.resolve({
-      data: {
-        url,
-        exists: true,
-        type: types[Math.floor(Math.random() * types.length)],
-      },
-    });
-  }
-
-  return Promise.reject(Error('Not found'));
+  return Promise.resolve({ data: { url, exists, type } });
 };
 
-// Throttle function to prevent too many requests
 const throttle = (fn, delay = 250) => {
   let lastCall = 0;
 
@@ -74,7 +66,7 @@ const handleUrlInput = (event) => {
     urlInput.classList.remove('is-invalid');
     urlInput.classList.add('is-valid');
 
-    postUrl(value.trim())
+    postUrl(value)
       .then(handlePostRespone)
       .catch((err) => {
         resultWrapper.innerHTML = `<b>${err}</b>`;
@@ -94,7 +86,7 @@ urlForm.onsubmit = (event) => {
   event.preventDefault();
 
   if (isValidUrl(urlInput.value)) {
-    postUrl(urlInput.value.trim())
+    postUrl(urlInput.value)
       .then(handlePostRespone)
       .catch((err) => {
         resultWrapper.innerHTML = `<b>${err}</b>`;
