@@ -32,7 +32,6 @@ main {
   margin-top: 2rem;
 }
 
-button,
 input {
   background: var(--color-grey-1);
   border: 0.125rem solid var(--color-grey-2);
@@ -40,20 +39,6 @@ input {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   outline: none;
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover,
-button:focus {
-  background: #f5f5f5;
-}
-
-button[disabled] {
-  background: #ddd;
-  cursor: not-allowed;
 }
 
 input {
@@ -67,10 +52,6 @@ input {
 
 #url-form > * {
   display: block;
-}
-
-#url-form button[type='submit'] {
-  margin-top: 1rem;
 }
 
 .hint-text {

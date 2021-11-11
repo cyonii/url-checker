@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,20 +15,12 @@
     </header>
 
     <main>
-      <form id="url-form">
+      <form>
         <div class="input-group">
           <label for="url-input">Enter URL:</label>
-          <input
-            type="text"
-            id="url-input"
-            name="url"
-            placeholder="e.g, http://example.com"
-            autofocus
-          />
+          <input type="text" id="url-input" placeholder="e.g, http://example.com" autofocus autocomplete="off" />
           <div class="hint-text">Format: https://example.com, example.com</div>
         </div>
-
-        <button id="submit-button" type="submit" disabled>Submit</button>
       </form>
 
       <div id="result-wrapper"></div>
@@ -35,4 +28,5 @@
 
     <script src="./index.js"></script>
   </body>
+
 </html>

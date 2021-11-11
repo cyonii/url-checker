@@ -1,25 +1,25 @@
 const urlInput = document.getElementById('url-input');
-const urlForm = document.getElementById('url-form');
-const submitButton = document.getElementById('submit-button');
 const resultWrapper = document.getElementById('result-wrapper');
 
-// Utilitiy functions
+// ===================
+// Utility functions
+// ===================
 const isValidUrl = (url) => {
-  const pattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
+  const pattern = /^(?:\w+?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
 
   return pattern.test(url);
 };
 
 const getSample = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-const postUrl = async (url) => {
+const postUrl = async (url) => { // mocked server response
   const exists = getSample([true, false]);
   const type = exists ? getSample(['file', 'folder']) : null;
 
   return Promise.resolve({ data: { url, exists, type } });
 };
 
-const throttle = (fn, delay = 250) => {
+const throttle = (fn, delay = 1000) => { // throttles function calls
   let lastCall = 0;
 
   return (...args) => {
@@ -32,7 +32,9 @@ const throttle = (fn, delay = 250) => {
   };
 };
 
+// ===================
 // DOM manipulation
+// ===================
 const resultTemplate = (data) => `
   <h2>Result</h2>
 
@@ -43,53 +45,39 @@ const resultTemplate = (data) => `
   </div>
 `;
 
-const handlePostRespone = (response) => {
-  const { data } = response;
-
+const updateResult = ({ data }) => {
   resultWrapper.innerHTML = resultTemplate(data);
 };
 
-const handleUrlInput = (event) => {
-  resultWrapper.innerHTML = '';
+const updateFormValidity = () => {
+  const { value } = urlInput;
 
-  const { value } = event.target;
-
-  if (value.length < 1) {
-    submitButton.disabled = true;
+  if (value.length === 0) {
     urlInput.classList.remove('is-invalid');
     urlInput.classList.remove('is-valid');
-    return;
-  }
-
-  if (isValidUrl(value)) {
-    submitButton.disabled = false;
+  } else if (isValidUrl(value)) {
     urlInput.classList.remove('is-invalid');
     urlInput.classList.add('is-valid');
-
-    postUrl(value)
-      .then(handlePostRespone)
-      .catch((err) => {
-        resultWrapper.innerHTML = `<b>${err}</b>`;
-      });
   } else {
-    submitButton.disabled = true;
     urlInput.classList.remove('is-valid');
     urlInput.classList.add('is-invalid');
   }
 };
 
-// Event handlers
-urlInput.onkeyup = throttle(handleUrlInput);
-urlInput.onchange = throttle(handleUrlInput);
+const handleUrlInput = async (event) => {
+  resultWrapper.innerHTML = '';
 
-urlForm.onsubmit = (event) => {
-  event.preventDefault();
+  updateFormValidity();
 
-  if (isValidUrl(urlInput.value)) {
-    postUrl(urlInput.value)
-      .then(handlePostRespone)
-      .catch((err) => {
-        resultWrapper.innerHTML = `<b>${err}</b>`;
-      });
+  const { value } = event.target;
+  if (isValidUrl(value)) {
+    postUrl(value)
+      .then(updateResult)
+      .catch((err) => err);
   }
 };
+
+// ===================
+// Event listeners
+// ===================
+urlInput.oninput = handleUrlInput;
