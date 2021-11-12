@@ -19,16 +19,13 @@ const postUrl = async (url) => { // mocked server response
   return Promise.resolve({ data: { url, exists, type } });
 };
 
-const throttle = (func, delay = 250) => {
-  let lastCall = 0;
+const debounce = (func, delay = 250) => {
+  let timeout;
 
   return (...args) => {
-    const now = new Date().getTime();
+    clearTimeout(timeout);
 
-    if (now - lastCall < delay) return;
-    lastCall = now;
-
-    func(...args);
+    timeout = setTimeout(() => func(...args), delay);
   };
 };
 
@@ -79,4 +76,4 @@ urlInput.addEventListener('input', () => {
   updateFormValidity();
 });
 
-urlInput.addEventListener('input', throttle(submitUrl));
+urlInput.addEventListener('input', debounce(submitUrl, 500));
