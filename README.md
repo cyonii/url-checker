@@ -14,4 +14,4 @@
 
 ## Live Demo
 
-You can check out the live demo [here](https://raw.githack.com/cyonii/url-checker/master/src/index.html)
+You can check out the live demo [here](https://rawcdn.githack.com/cyonii/url-checker/0db2c3ebb9490973d075e2844b1b33a48b781ccd/src/index.html)
