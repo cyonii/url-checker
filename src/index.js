@@ -76,4 +76,4 @@ urlInput.addEventListener('input', () => {
   updateFormValidity();
 });
 
-urlInput.addEventListener('input', debounce(submitUrl, 500));
+urlInput.addEventListener('input', debounce(submitUrl));
