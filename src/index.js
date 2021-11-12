@@ -19,7 +19,7 @@ const postUrl = async (url) => { // mocked server response
   return Promise.resolve({ data: { url, exists, type } });
 };
 
-const throttle = (fn, delay = 1000) => { // throttles function calls
+const throttle = (func, delay = 250) => {
   let lastCall = 0;
 
   return (...args) => {
@@ -28,7 +28,7 @@ const throttle = (fn, delay = 1000) => { // throttles function calls
     if (now - lastCall < delay) return;
     lastCall = now;
 
-    fn(...args);
+    func(...args);
   };
 };
 
@@ -45,10 +45,6 @@ const resultTemplate = (data) => `
   </div>
 `;
 
-const updateResult = ({ data }) => {
-  resultWrapper.innerHTML = resultTemplate(data);
-};
-
 const updateFormValidity = () => {
   const { value } = urlInput;
 
@@ -64,15 +60,12 @@ const updateFormValidity = () => {
   }
 };
 
-const handleUrlInput = async (event) => {
-  resultWrapper.innerHTML = '';
-
-  updateFormValidity();
-
-  const { value } = event.target;
-  if (isValidUrl(value)) {
-    postUrl(value)
-      .then(updateResult)
+const submitUrl = async () => {
+  if (isValidUrl(urlInput.value)) {
+    postUrl(urlInput.value)
+      .then(({ data }) => {
+        resultWrapper.innerHTML = resultTemplate(data);
+      })
       .catch((err) => err);
   }
 };
@@ -80,4 +73,10 @@ const handleUrlInput = async (event) => {
 // ===================
 // Event listeners
 // ===================
-urlInput.oninput = handleUrlInput;
+urlInput.addEventListener('input', () => {
+  resultWrapper.innerHTML = '';
+
+  updateFormValidity();
+});
+
+urlInput.addEventListener('input', throttle(submitUrl));
