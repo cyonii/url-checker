@@ -48,6 +48,7 @@ input {
 #result-wrapper,
 #url-form {
   width: 400px;
+  max-width: 95%;
 }
 
 #url-form > * {
